@@ -16,7 +16,7 @@ import { Account } from './sacco/interfaces/account';
   providedIn: 'root'
 })
 export class ApiService {
-  apiRoot = 'http://localhost:8000/api';
+  apiRoot = 'https://secret-citadel-66262.herokuapp.com/api';
   headers = new HttpHeaders({
     'Content-Type': 'application/json'
   });
