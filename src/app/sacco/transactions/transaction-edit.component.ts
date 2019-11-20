@@ -20,7 +20,7 @@ export class TransactionEditComponent implements OnInit, OnDestroy, AfterViewIni
   @ViewChildren(FormControlName, { read: ElementRef }) formInputElements: ElementRef[];
   genderList: Gender[];
   startDate: Date;
-  transForm: FormGroup;
+  transForm: any;
   member: Member;
   transaction: Transaction;
   accounts: Account[];

@@ -8,5 +8,5 @@ export interface Transaction {
   details: string;
   debit: Account;
   credit: Account;
-  member: Member;
+  member: any;
 }
