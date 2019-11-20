@@ -13,7 +13,7 @@ import { environment } from '../environments/environment';
 })
 export class AuthService {
   payLoad: JWTPayload;
-  private apiRoot = 'http://localhost:8000/auth/';
+  private apiRoot = 'https://secret-citadel-66262.herokuapp.com/auth/';
   constructor( private httpClient: HttpClient) { }
 
   private setSession(authResult) {
