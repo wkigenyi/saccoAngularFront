@@ -1,0 +1,187 @@
+<div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style="min-height: 100px; background-size: cover; background-position: center top;">
+  <!-- Mask -->
+  <span class="mask bg-gradient-danger opacity-8"></span>
+  <!-- Header container -->
+  <!--<div class="container-fluid d-flex align-items-center">
+    <div class="row">
+      <div class="col-lg-7 col-md-10">
+        <h1 class="display-2 text-white">Hello Jesse</h1>
+        <p class="text-white mt-0 mb-5">This is your profile page. You can see the progress you've made with your work and manage your projects or assigned tasks</p>
+        <a href="#!" class="btn btn-info">Edit profile</a>
+      </div>
+    </div>
+  </div>-->
+</div>
+<div class="container-fluid mt--7">
+  <div class="row">
+    <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
+      <div *ngIf="member.id" class="card card-profile shadow">
+        <div class="row justify-content-center">
+          <div class="col-lg-3 order-lg-2">
+            <div class="card-profile-image">
+              <a href="javascript:void(0)">
+                <img src="" class="rounded-circle">
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+          <div class="d-flex justify-content-between">
+            <a href="javascript:void(0)" class="btn btn-sm btn-default float-right">Transactions</a>
+          </div>
+        </div>
+        <div class="card-body pt-0 pt-md-4">
+          <div class="row">
+            <div class="col">
+              <div class="card-profile-stats d-flex justify-content-center mt-md-5">
+                <div>
+                  <span class="heading">22</span>
+                  <span class="description">Shares</span>
+                </div>
+                <div>
+                  <span class="heading">10</span>
+                  <span class="description">Savings</span>
+                </div>
+                <div>
+                  <span class="heading">89</span>
+                  <span class="description">Loans</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="text-center">
+            <h3>
+              {{getDisplayName()}}<span class="font-weight-light"></span>
+            </h3>
+            <div class="h5 font-weight-300">
+              <i class="fa fa-address-card"></i>{{member.address}}
+            </div>
+            <div class="h5 mt-4">
+              <i class="fa fa-phone"></i>{{member.telephone}}
+            </div>
+            <div>
+              <i class="fa fa-envelope"></i>{{member.email}}
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-8 order-xl-1">
+      <div class="card bg-secondary shadow">
+        <div class="card-header bg-white border-0">
+          <div class="row align-items-center">
+            <div class="col-8">
+              <h3 class="mb-0">{{title}}</h3>
+            </div>
+            <div class="col-4 text-right">
+              <a [routerLink]="['/members']" class="btn btn-sm btn-primary">Cancel</a>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <form (ngSubmit)="save()" [formGroup]="memberForm">
+            <h6 class="heading-small text-muted mb-4">Member Information</h6>
+            <div class="pl-lg-4">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="sur_name">Sur Name</label>
+                    <input type="text"
+                    id="sur_name"
+                    class="form-control form-control-alternative"
+                    placeholder="Family Name - required"
+                    formControlName="sur_name"
+                    [ngClass]="{'is-invalid': displayMessage.sur_name}" title="{{displayMessage.sur_name}}">
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="first_name">First Name</label>
+                    <input type="first_name" id="first_name" class="form-control form-control-alternative" placeholder="First Name - required"
+                    formControlName="first_name" [ngClass]="{'is-invalid': displayMessage.first_name}" title="{{displayMessage.first_name}}">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="other_names">Other Names</label>
+                    <input type="text" id="other_names" class="form-control form-control-alternative" placeholder="Other Names"
+                    formControlName="other_names" [ngClass]="{'is-invalid': displayMessage.other_names}" title="{{displayMessage.other_names}}">
+                  </div>
+                </div>
+
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="date_of_birth">Date Of Birth</label>
+                    <input type="date" placeholder="Date Of Birth" id="date_of_birth" class="form-control form-control-alternative" formControlName="date_of_birth">
+
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="gender">Gender</label>
+                    <select id="gender" class="form-control form-control-alternative" formControlName="gender" [ngClass]="{'is-invalid': displayMessage.gender}" title="{{displayMessage.gender}}">
+                      <option disabled>Select Gender</option>
+                      <option *ngFor=" let gender of genderList " value="{{gender.id}}">{{gender.gender}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="identification">Identity Card No.</label>
+                    <input type="text" placeholder="ID No." id="identification" class="form-control form-control-alternative"
+                    formControlName="identification" [ngClass]="{'is-invalid': displayMessage.identification}" title="{{displayMessage.identification}}">
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="date_of_joining">Joining Date</label>
+                    <input type="date" placeholder="Joining Date" id="date_of_joining" class="form-control form-control-alternative"
+                    formControlName="date_of_joining" [ngClass]="{'is-invalid': displayMessage.date_of_joining}" title="{{displayMessage.date_of_joining}}">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr class="my-4" />
+            <!-- Address -->
+            <h6 class="heading-small text-muted mb-4">Contact information</h6>
+            <div class="pl-lg-4">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label class="form-control-label" for="address">Address</label>
+                    <input id="address" class="form-control form-control-alternative" placeholder="Address - required" type="text"
+                    formControlName="address" [ngClass]="{'is-invalid': displayMessage.address}" title="{{displayMessage.address}}">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="email">Email Address</label>
+                    <input type="email" id="email" class="form-control form-control-alternative" placeholder="Email Address - required"
+                    formControlName="email" [ngClass]="{'is-invalid': displayMessage.email}" title="{{displayMessage.email}}">
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="telephone">Telephone</label>
+                    <input type="tel" id="telephone" class="form-control form-control-alternative" placeholder="Phone - required"
+                    formControlName="telephone" [ngClass]="{'is-invalid': displayMessage.telephone}" title="{{displayMessage.telephone}}">
+                  </div>
+                </div>
+
+              </div>
+              <button class="btn btn-primary" type="submit" [title]="memberForm.valid ? 'Save your entered data' : 'Disabled until the form data is valid'"
+              [disabled]="!(transForm.valid && transForm.dirty)">Save Member</button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,152 @@
+<div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style="min-height: 100px; background-size: cover; background-position: center top;">
+  <!-- Mask -->
+  <span class="mask bg-gradient-danger opacity-8"></span>
+  <!-- Header container -->
+  <!--<div class="container-fluid d-flex align-items-center">
+    <div class="row">
+      <div class="col-lg-7 col-md-10">
+        <h1 class="display-2 text-white">Hello Jesse</h1>
+        <p class="text-white mt-0 mb-5">This is your profile page. You can see the progress you've made with your work and manage your projects or assigned tasks</p>
+        <a href="#!" class="btn btn-info">Edit profile</a>
+      </div>
+    </div>
+  </div>-->
+</div>
+<div class="container-fluid mt--7">
+  <div class="row">
+    <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
+      <div *ngIf="member.id" class="card card-profile shadow">
+        <div class="row justify-content-center">
+          <div class="col-lg-3 order-lg-2">
+            <div class="card-profile-image">
+              <a href="javascript:void(0)">
+                <img src="" class="rounded-circle">
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+          <div class="d-flex justify-content-between">
+            <a href="javascript:void(0)" class="btn btn-sm btn-info mr-4">Deposit</a>
+            <a href="javascript:void(0)" class="btn btn-sm btn-default float-right">Withdraw</a>
+          </div>
+        </div>
+        <div class="card-body pt-0 pt-md-4">
+          <div class="row">
+            <div class="col">
+              <div class="card-profile-stats d-flex justify-content-center mt-md-5">
+                <div>
+                  <span class="heading">22</span>
+                  <span class="description">Shares</span>
+                </div>
+                <div>
+                  <span class="heading">10</span>
+                  <span class="description">Savings</span>
+                </div>
+                <div>
+                  <span class="heading">89</span>
+                  <span class="description">Loans</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="text-center">
+            <h3>
+              {{getDisplayName()}}<span class="font-weight-light"></span>
+            </h3>
+            <div class="h5 font-weight-300">
+              <i class="fa fa-address-card"></i>{{member.address}}
+            </div>
+            <div class="h5 mt-4">
+              <i class="fa fa-phone"></i>{{member.telephone}}
+            </div>
+            <div>
+              <i class="fa fa-envelope"></i>{{member.email}}
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-8 order-xl-1">
+      <div class="card bg-secondary shadow">
+        <div class="card-header bg-white border-0">
+          <div class="row align-items-center">
+            <div class="col-8">
+              <h3 class="mb-0">{{title}}</h3>
+            </div>
+            <div class="col-4 text-right">
+              <a [routerLink]="['/transactions',member.id]" class="btn btn-sm btn-primary">Cancel</a>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <form (ngSubmit)="save()" [formGroup]="transForm">
+            <h6 class="heading-small text-muted mb-4">Transaction Information</h6>
+            <div class="pl-lg-4">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="date">Date</label>
+                    <input type="date"
+                    id="date"
+                    class="form-control form-control-alternative"
+                    formControlName="date"
+
+                    [ngClass]="{'is-invalid': displayMessage.date}" title="{{displayMessage.date}}">
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="amount">Amount</label>
+                    <input type="number" id="amount" class="form-control form-control-alternative" placeholder="Amount - required"
+                    formControlName="amount" [ngClass]="{'is-invalid': displayMessage.amount}" title="{{displayMessage.amount}}">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="debit">From</label>
+                    <select id="debit" class="form-control form-control-alternative" placeholder="Other Names"
+                    formControlName="debit" [ngClass]="{'is-invalid': displayMessage.debit}" title="{{displayMessage.debit}}">
+                      <option *ngFor="let account of accounts " value="{{account.id}}">{{account.source}}</option>
+                  </select>
+                  </div>
+                </div>
+
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="credit">To</label>
+                    <select id="credit" class="form-control form-control-alternative" formControlName="credit">
+                      <option *ngFor="let account of accounts " value="{{account.id}}">{{account.source}}</option>
+                    </select>
+
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <label class="form-control-label" for="details">Description</label>
+                    <textarea id="details" class="form-control form-control-alternative" formControlName="details" [ngClass]="{'is-invalid': displayMessage.details}" title="{{displayMessage.details}}">
+
+                    </textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="pl-lg-4">
+              <button class="btn btn-primary" type="submit" [title]="transForm.valid ? 'Save your entered data' : 'Disabled until the form data is valid'"
+              [disabled]="!(transForm.valid && transForm.dirty)">Save Transaction</button>
+            </div>
+
+
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
