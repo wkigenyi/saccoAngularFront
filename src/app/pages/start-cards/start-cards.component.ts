@@ -11,6 +11,10 @@ export class StartCardsComponent implements OnInit {
   constructor(private apiService: ApiService) { }
 
   ngOnInit() {
+    this.getStats();
+  }
+
+  getStats() {
     this.apiService.getStats().subscribe(
       data => this.stats = data
     );
