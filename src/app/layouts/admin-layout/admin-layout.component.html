@@ -1,10 +1,10 @@
 <!-- Sidenav -->
 <app-sidebar></app-sidebar>
-<div class="main-content">
+<div class="main-content" [@slideInAnimation]="o.isActivated ? o.activatedRoute : ''">
   <!-- Top navbar -->
   <app-navbar></app-navbar>
   <!-- Pages -->
-  <router-outlet></router-outlet>
+  <router-outlet #o="outlet"></router-outlet>
   <div class="container-fluid">
     <app-footer></app-footer>
   </div>

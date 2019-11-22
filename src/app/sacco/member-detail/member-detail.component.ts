@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, AfterViewInit, ViewChildren, ElementRef } from '@angular/core';
 import { ApiService } from 'src/app/api.service';
 import { Gender } from '../interfaces/gender';
-import { Member } from '../interfaces/member';
+import { Member, ResolvedMember } from '../interfaces/member';
 import { FormBuilder, FormGroup, Validators, AbstractControl, FormControlName } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription, Observable, fromEvent, merge } from 'rxjs';
@@ -13,7 +13,7 @@ import { debounceTime } from 'rxjs/operators';
   templateUrl: './member-detail.component.html',
   styleUrls: ['./member-detail.component.scss']
 })
-export class MemberDetailComponent implements OnInit, OnDestroy, AfterViewInit {
+export class MemberDetailComponent implements OnInit, AfterViewInit {
 
   @ViewChildren(FormControlName, { read: ElementRef }) formInputElements: ElementRef[];
   genderList: Gender[];
@@ -83,7 +83,7 @@ export class MemberDetailComponent implements OnInit, OnDestroy, AfterViewInit {
      }
 
   ngOnInit() {
-    this.getGender();
+
     this.memberForm = this.formBuilder.group({
       sur_name: ['', [ Validators.required, Validators.minLength(3), Validators.maxLength(50)] ],
       other_names: ['', [ Validators.minLength(3), Validators.maxLength(50)] ],
@@ -97,16 +97,22 @@ export class MemberDetailComponent implements OnInit, OnDestroy, AfterViewInit {
       telephone: ['', []],
       email: ['', [ Validators.email ]],
     });
+    const resolvedMember: ResolvedMember = this.route.snapshot.data['resolvedData'];
+    this.displayMember(resolvedMember.member);
+    this.errorMessage = resolvedMember.error;
+    this.genderList = this.route.snapshot.data['genderList'];
+  }
 
+  onMemberRetrieved(member: Member): void {
+    this.member = member;
 
-
-    // Read the member Id from the route parameter
-    this.sub = this.route.paramMap.subscribe(
-      params => {
-        const id = +params.get('id');
-        this.getMember(id);
-      }
-    );
+    if (this.member) {
+      this.title = `Member Detail: ${this.member.sur_name}`;
+    } else if ( this.member.id === 0 ) {
+      this.title = 'New Member';
+    } else {
+      this.title = 'Not found';
+    }
   }
 
   getGender() {
@@ -188,11 +194,6 @@ export class MemberDetailComponent implements OnInit, OnDestroy, AfterViewInit {
     return this.member.sur_name + ' ' + this.member.first_name + ' ' + this.member.other_names;
   }
 
-
-
-  ngOnDestroy(): void {
-    this.sub.unsubscribe();
-  }
 
   ngAfterViewInit(): void {
         // Watch for the blur event from any input element on the form.

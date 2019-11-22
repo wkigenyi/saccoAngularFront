@@ -10,9 +10,10 @@ import { LoanAppsComponent } from 'src/app/sacco/loan-apps/loan-apps.component';
 import { MemberRequestsComponent } from 'src/app/sacco/member-requests/member-requests.component';
 import { MemberDetailComponent } from 'src/app/sacco/member-detail/member-detail.component';
 import { AuthGuard } from 'src/app/auth.service';
-import { MemberEditGuardGuard } from 'src/app/sacco/member-edit-guard.guard';
 import { TransactionsComponent } from 'src/app/sacco/transactions/transactions.component';
 import { TransactionEditComponent } from 'src/app/sacco/transactions/transaction-edit.component';
+import { MemberResolver } from 'src/app/sacco/MemberResolver';
+import { GenderResolver } from 'src/app/sacco/GenderResolver';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      canActivate: [AuthGuard], component: DashboardComponent },
@@ -24,7 +25,11 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'loanappns',       component: LoanAppsComponent},
     { path: 'memberappns',       component: MemberRequestsComponent},
     { path: 'members/:id/edit',      canActivate: [AuthGuard],
-                                    component: MemberDetailComponent},
+                                    component: MemberDetailComponent,
+                                    resolve: {
+                                      resolvedData: MemberResolver,
+                                      genderList: GenderResolver
+                                    }},
     { path: 'transactions/:memberid', component: TransactionsComponent},
     { path: 'transactions/:memberid/:txid/edit', component: TransactionEditComponent},
 ];

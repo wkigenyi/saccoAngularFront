@@ -1,3 +1,5 @@
+
+
 export interface Member {
   id: number;
   sur_name: string;
@@ -14,4 +16,9 @@ export interface Member {
   telephone: string;
   email: string;
   date_of_departure: string;
+}
+
+export interface ResolvedMember {
+  member: Member;
+  error?: any;
 }

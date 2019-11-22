@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/api.service';
 import { Member } from '../interfaces/member';
+import { slideInAnimation } from 'src/app/app.animation';
 
 
 @Component({
   selector: 'app-members',
   templateUrl: './members.component.html',
-  styleUrls: ['./members.component.scss']
+  styleUrls: ['./members.component.scss'],
+  animations: [slideInAnimation]
 })
 export class MembersComponent implements OnInit {
 

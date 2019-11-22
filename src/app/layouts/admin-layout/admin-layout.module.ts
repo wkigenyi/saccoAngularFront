@@ -30,7 +30,7 @@ import { TransactionEditComponent } from 'src/app/sacco/transactions/transaction
     HttpClientModule,
     NgbModule,
     ClipboardModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   declarations: [
     DashboardComponent,

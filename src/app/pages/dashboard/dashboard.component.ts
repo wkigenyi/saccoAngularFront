@@ -8,11 +8,13 @@ import {
   chartExample1,
   chartExample2
 } from "../../variables/charts";
+import { slideInAnimation } from 'src/app/app.animation';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
+  animations: [slideInAnimation]
 })
 export class DashboardComponent implements OnInit {
 

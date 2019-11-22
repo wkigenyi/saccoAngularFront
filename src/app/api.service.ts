@@ -145,6 +145,12 @@ export class ApiService {
     };
   }
 
+  getStats(): Observable<any> {
+    const apiUrl = `${this.apiRoot}/stats/`;
+    return this.http.get<any>(apiUrl);
+
+  }
+
 
 
   private handleError<T>(operation: string, result?: T) {
