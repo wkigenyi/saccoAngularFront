@@ -22,3 +22,8 @@ export interface ResolvedMember {
   member: Member;
   error?: any;
 }
+
+export interface ResolvedMemberArray {
+  members: Member[];
+  error?: any;
+}

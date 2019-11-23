@@ -14,6 +14,8 @@ import { TransactionsComponent } from 'src/app/sacco/transactions/transactions.c
 import { TransactionEditComponent } from 'src/app/sacco/transactions/transaction-edit.component';
 import { MemberResolver } from 'src/app/sacco/MemberResolver';
 import { GenderResolver } from 'src/app/sacco/GenderResolver';
+import { MemberArrayResolver } from 'src/app/sacco/MemberArrayResolver';
+import { MemberTransactionArrayResolver } from 'src/app/sacco/TransactionArrayResolver';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      canActivate: [AuthGuard], component: DashboardComponent },
@@ -21,15 +23,20 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'tables',         component: TablesComponent },
     { path: 'icons',          component: IconsComponent },
     { path: 'maps',           component: MapsComponent },
-    { path: 'members',        component: MembersComponent},
+    { path: 'members',        component: MembersComponent,
+                              resolve: {resolvedData: MemberArrayResolver}},
     { path: 'loanappns',       component: LoanAppsComponent},
     { path: 'memberappns',       component: MemberRequestsComponent},
-    { path: 'members/:id/edit',      canActivate: [AuthGuard],
+    { path: 'members/:memberid/edit',      canActivate: [AuthGuard],
                                     component: MemberDetailComponent,
                                     resolve: {
                                       resolvedData: MemberResolver,
                                       genderList: GenderResolver
                                     }},
-    { path: 'transactions/:memberid', component: TransactionsComponent},
+    { path: 'transactions/:memberid', component: TransactionsComponent,
+                                      resolve: {
+                                        resolvedData: MemberTransactionArrayResolver,
+                                        member: MemberResolver
+                                      }},
     { path: 'transactions/:memberid/:txid/edit', component: TransactionEditComponent},
 ];

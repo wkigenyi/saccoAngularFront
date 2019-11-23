@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
-import { ResolvedMember } from './interfaces/member';
 import { Resolve, RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { ApiService } from '../api.service';
 import { map, catchError } from 'rxjs/operators';
+import { ResolvedMemberArray } from './interfaces/member';
+
 @Injectable({
   providedIn: 'root'
 })
-export class MemberResolver implements Resolve<ResolvedMember> {
+export class MemberArrayResolver implements Resolve<ResolvedMemberArray> {
   constructor(private apiService: ApiService) { }
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<ResolvedMember> {
-    const id = +route.paramMap.get('memberid');
-    return this.apiService.getMember(id).pipe(map(member => ({ member: member })), catchError(error => {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<ResolvedMemberArray> {
+    return this.apiService.getMembers().pipe(map(members => ({ members: members })), catchError(error => {
       const message = `Retrieval error: ${error}`;
       console.error(message);
-      return of({ member: null, error: error });
+      return of({ members: null, error: error });
     }));
   }
 }

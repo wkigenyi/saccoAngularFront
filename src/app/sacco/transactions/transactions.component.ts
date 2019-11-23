@@ -17,21 +17,12 @@ export class TransactionsComponent implements OnInit {
 
   ngOnInit() {
     // get the member id from the route
-    this.route.paramMap.subscribe(
-      params => {
-        const id = +params.get('memberid');
-        if ( id === 0 ) {
-
-        } else {
-          this.getMember(id);
-          this.apiService.getTransactions().subscribe(
-            transactions => this.transactions = transactions.filter(
-              (t: any) => t.member.id === id)
-          );
-        }
-
-      }
-    );
+    // get the data from the route
+    const resolvedTransactions = this.route.snapshot.data['resolvedData'];
+    this.transactions = resolvedTransactions.transactions;
+    const resolvedMember = this.route.snapshot.data['member'];
+    this.member = resolvedMember.member;
+    this.displayMember( this.member );
   }
 
   getMember(id: number): void {
@@ -43,12 +34,10 @@ export class TransactionsComponent implements OnInit {
 
   displayMember(member: Member): void {
 
-    this.member = member;
     if ( this.member.id === 0) {
       this.heading = 'All Transactions';
     } else {
       this.heading = member.sur_name + ' ' + member.first_name;
     }
-    console.log('Tufunye Member: ' + member.id);
   }
 }

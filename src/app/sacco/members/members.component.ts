@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/api.service';
 import { Member } from '../interfaces/member';
 import { slideInAnimation } from 'src/app/app.animation';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -14,9 +15,8 @@ export class MembersComponent implements OnInit {
 
   members: Member[];
   filteredMembers: Member[];
-  apiRoot = 'http://localhost:8000/api';
   _listFilter = '';
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService, private route: ActivatedRoute) {}
 
   get listFilter() {
     return this._listFilter;
@@ -27,7 +27,11 @@ export class MembersComponent implements OnInit {
 
   }
   ngOnInit() {
-    this.getMembers();
+    // this.getMembers();
+    const resolvedData = this.route.snapshot.data['resolvedData'];
+    //console.log(resolvedData);
+    this.members = resolvedData.members;
+    this.filteredMembers = this.members;
   }
 
   getMembers() {

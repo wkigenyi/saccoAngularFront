@@ -118,6 +118,11 @@ export class ApiService {
 
   }
 
+  getMemberTransactions(id: number): Observable<Transaction[]> {
+    const apiUrl = `${this.apiRoot}/memberentries/${id}`;
+    return this.http.get<Transaction[]>(apiUrl);
+  }
+
   getTransaction(id: number, memberid: number): Observable<Transaction> {
     if ( id === 0 ) {
       return of(this.initializeTransaction(memberid));

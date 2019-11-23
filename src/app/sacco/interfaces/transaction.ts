@@ -10,3 +10,8 @@ export interface Transaction {
   credit: Account;
   member: any;
 }
+
+export interface ResolvedTransactionsArray {
+  transactions: Transaction[];
+  error: any;
+}
